@@ -5,11 +5,12 @@
 ## Sign-in in here: https://portal.msrc.microsoft.com/en-us/developer, and click on the Developer tab, click the Show button on the API key.
 
 ## Install the MSRC PowerShell cmdlets, Run in an Admin PowerShell:
-## Install-Module -Name MSRCSecurityUpdates -force
+Install-Module -Name MSRCSecurityUpdates -force
 
 ## In a normal user PowerShell:
 Import-Module MSRCSecurityUpdates -Verbose:$false
-Set-MSRCApiKey -ApiKey "your-api-key" 
+$API="$env:APIKEY"
+Set-MSRCApiKey -ApiKey $API
 $timeperiod = Get-Date -Format yyyy-MMM
 # Older style report
 #$fname = 'MSRCSecurityUpdates' + $timeperiod + '.html'
@@ -18,4 +19,4 @@ $timeperiod = Get-Date -Format yyyy-MMM
 # Newer style report
 $fname_cve = 'MSRC_CVEs' + $timeperiod + '.html'
 Get-MsrcCvrfDocument -ID $timeperiod | Get-MsrcVulnerabilityReportHtml | Out-File $fname_cve
-Invoke-Item $fname_cve
+copy *.html /mnt/ 
