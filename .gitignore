@@ -1,3 +1,9 @@
+# Ignore html
+*.html
+
+# Igonre API key
+api.txt
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
