@@ -1,6 +1,3 @@
-# Ignore html
-*.html
-
 # Igonre API key
 api.txt
 
