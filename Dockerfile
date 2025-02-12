@@ -2,7 +2,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0-noble-arm64v8 AS builder
 
 # install the latest version of PowerShell
-RUN dotnet tool install -g PowerShell
+RUN dotnet tool install -g PowerShell --version 7.4.7
 
 # discard all that builder data then just copy the required changed files from "builder" to the smaller 180MB base image
 FROM mcr.microsoft.com/dotnet/runtime:8.0-noble-arm64v8
