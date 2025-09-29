@@ -4,7 +4,7 @@ This version of the MSRC script by [JohnLaTwC](https://github.com/JohnLaTwC/MSRC
 
 ## Get API key
 
-You have to login to the MSRC Portal to get an API key. 
+You have to login to the MSRC Portal to get an API key.
 
 Sign-in in here: [https://portal.msrc.microsoft.com/en-us/developer](https://portal.msrc.microsoft.com/en-us/developer), and click on the Developer tab, click the Show button on the API key.
 
