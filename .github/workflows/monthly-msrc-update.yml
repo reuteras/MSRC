@@ -65,7 +65,8 @@ jobs:
       - name: Check for changes
         id: check_changes
         run: |
-          git diff --quiet Reports/ || \
+          git add Reports
+          git diff --cache --exit-code Reports/ || \
             echo "has_changes=true" >> "$GITHUB_OUTPUT"
 
       - name: Commit and push changes
