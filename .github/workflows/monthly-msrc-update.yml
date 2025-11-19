@@ -1,4 +1,3 @@
----
 name: Monthly MSRC Data Update
 
 on:
@@ -32,8 +31,11 @@ jobs:
       - name: Set time period
         id: timeperiod
         run: |
-          if [ -n "${{ github.event.inputs.year }}" ] && [ -n "${{ github.event.inputs.month }}" ]; then
-            TIMEPERIOD="${{ github.event.inputs.year }}-${{ github.event.inputs.month }}"
+          if [ -n "${{ github.event.inputs.year }}" ] && \
+             [ -n "${{ github.event.inputs.month }}" ]; then
+            YEAR="${{ github.event.inputs.year }}"
+            MONTH="${{ github.event.inputs.month }}"
+            TIMEPERIOD="${YEAR}-${MONTH}"
           else
             TIMEPERIOD=$(date '+%Y-%b')
           fi
@@ -51,27 +53,33 @@ jobs:
             -v "${{ github.workspace }}":/mnt \
             mcr.microsoft.com/powershell \
             pwsh -Command '
-              Install-Module -Name MSRCSecurityUpdates -Force -Scope CurrentUser
+              Install-Module -Name MSRCSecurityUpdates \
+                -Force -Scope CurrentUser
               Import-Module MSRCSecurityUpdates -Verbose:$false
               Set-MSRCApiKey -ApiKey $env:APIKEY
               $timeperiod = $env:TIMEPERIOD
               $fname_cve = "MSRC_CVEs" + $timeperiod + ".html"
-              Get-MsrcCvrfDocument -ID $timeperiod | Get-MsrcVulnerabilityReportHtml | Out-File $fname_cve
+              Get-MsrcCvrfDocument -ID $timeperiod |
+                Get-MsrcVulnerabilityReportHtml |
+                Out-File $fname_cve
               Copy-Item *.html /mnt/Reports/ -Force
             '
 
       - name: Check for changes
         id: check_changes
         run: |
-          git diff --quiet Reports/ || echo "has_changes=true" >> $GITHUB_OUTPUT
+          git diff --quiet Reports/ || \
+            echo "has_changes=true" >> $GITHUB_OUTPUT
 
       - name: Commit and push changes
         if: steps.check_changes.outputs.has_changes == 'true'
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.email \
+            "github-actions[bot]@users.noreply.github.com"
           git add Reports/*.html
-          git commit -m "Add data for ${{ steps.timeperiod.outputs.timeperiod }}"
+          PERIOD="${{ steps.timeperiod.outputs.timeperiod }}"
+          git commit -m "Add data for ${PERIOD}"
           git push
 
       - name: No changes detected
