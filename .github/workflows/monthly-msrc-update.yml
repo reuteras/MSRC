@@ -58,9 +58,8 @@ jobs:
               Import-Module MSRCSecurityUpdates -Verbose:$false
               Set-MSRCApiKey -ApiKey $env:APIKEY
               $timeperiod = $env:TIMEPERIOD
-              $fname_cve = "MSRC_CVEs" + $timeperiod + ".html"
+              $fname_cve = "/mnt/Reports/MSRC_CVEs" + $timeperiod + ".html"
               Get-MsrcCvrfDocument -ID $timeperiod | Get-MsrcVulnerabilityReportHtml | Out-File $fname_cve
-              Copy-Item *.html /mnt/Reports/ -Force
             '
 
       - name: Check for changes
