@@ -54,15 +54,12 @@ jobs:
             -v "${{ github.workspace }}":/mnt \
             mcr.microsoft.com/powershell \
             pwsh -Command '
-              Install-Module -Name MSRCSecurityUpdates \
-                -Force -Scope CurrentUser
+              Install-Module -Name MSRCSecurityUpdates -Force -Scope CurrentUser
               Import-Module MSRCSecurityUpdates -Verbose:$false
               Set-MSRCApiKey -ApiKey $env:APIKEY
               $timeperiod = $env:TIMEPERIOD
               $fname_cve = "MSRC_CVEs" + $timeperiod + ".html"
-              Get-MsrcCvrfDocument -ID $timeperiod |
-                Get-MsrcVulnerabilityReportHtml |
-                Out-File $fname_cve
+              Get-MsrcCvrfDocument -ID $timeperiod | Get-MsrcVulnerabilityReportHtml | Out-File $fname_cve
               Copy-Item *.html /mnt/Reports/ -Force
             '
 
