@@ -1,5 +1,5 @@
 # use the 730MB sdk image to build
-FROM mcr.microsoft.com/dotnet/sdk:8.0-noble-arm64v8 AS builder
+FROM mcr.microsoft.com/dotnet/sdk:10.0-noble-arm64v8 AS builder
 
 # install the latest version of PowerShell
 RUN dotnet tool install -g PowerShell --version 7.4.7
