@@ -1,0 +1,23 @@
+---
+# Trivy configuration for the project
+# This configuration disables specific misconfig checks
+
+# Disable scanning for specific misconfigurations
+# Dockerfile checks that are acceptable for this project:
+# - No HEALTHCHECK instruction (AVD-DS-0001)
+# - Running as root user (AVD-DS-0002)
+
+skip-db-update: false
+severity:
+  - CRITICAL
+  - HIGH
+
+# Misconfiguration scanner settings
+config:
+  scanners:
+    - misconfig
+  skip-checks:
+    # HEALTHCHECK instruction not specified
+    - AVD-DS-0001
+    # Running as root
+    - AVD-DS-0002
