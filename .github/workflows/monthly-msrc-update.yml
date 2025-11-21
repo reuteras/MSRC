@@ -74,12 +74,13 @@ jobs:
 
       - name: Commit and push changes
         if: steps.check_changes.outputs.has_changes == 'true'
+        env:
+          PERIOD: ${{ steps.timeperiod.outputs.timeperiod }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email \
             "github-actions[bot]@users.noreply.github.com"
           git add Reports/*.html
-          PERIOD="${{ steps.timeperiod.outputs.timeperiod }}"
           git commit -m "Add data for ${PERIOD}"
           git push
 
