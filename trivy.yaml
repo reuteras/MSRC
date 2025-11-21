@@ -7,7 +7,6 @@
 # - No HEALTHCHECK instruction (AVD-DS-0001)
 # - Running as root user (AVD-DS-0002)
 
-skip-db-update: false
 severity:
   - CRITICAL
   - HIGH

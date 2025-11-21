@@ -35,7 +35,9 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Lint Code Base
-        uses: super-linter/super-linter/slim@2bdd90ed3262e023ac84bf8fe35dc480721fc1f2 # v8.2.1
+        # renovate: datasource=docker depName=super-linter/super-linter
+        uses:
+          super-linter/super-linter/slim@2bdd90ed3262e023ac84bf8fe35dc480721fc1f2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_CHECKOV: false
