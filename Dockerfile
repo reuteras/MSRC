@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # Build stage: use the 730MB sdk image to build
-FROM mcr.microsoft.com/dotnet/sdk:9.0-bookworm-slim-arm64v8 AS builder
+FROM mcr.microsoft.com/dotnet/sdk:9.0.315-bookworm-slim-arm64v8 AS builder
 
 LABEL maintainer="MSRC Project"
 
