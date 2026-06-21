@@ -9,7 +9,7 @@ LABEL maintainer="MSRC Project"
 RUN dotnet tool install -g PowerShell --version 7.5.4
 
 # Final stage: discard all builder data, copy only required files to smaller 180MB base image
-FROM mcr.microsoft.com/dotnet/runtime:9.0-bookworm-slim-arm64v8
+FROM mcr.microsoft.com/dotnet/runtime:9.0.17-bookworm-slim-arm64v8
 
 LABEL maintainer="MSRC Project"
 
