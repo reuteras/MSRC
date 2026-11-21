@@ -4,9 +4,16 @@ updates:
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "daily"
     cooldown:
       default-days: 7
+    # Stay on the .NET LTS line (PowerShell 7.6 targets .NET 10): no major
+    # bumps such as 10.0 -> 11.0 (STS); patch/digest updates still come.
+    ignore:
+      - dependency-name: "dotnet/sdk"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "dotnet/runtime"
+        update-types: ["version-update:semver-major"]
     groups:
       docker-deps:
         patterns:
@@ -15,7 +22,7 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "daily"
     cooldown:
       default-days: 7
     groups:
@@ -26,6 +33,6 @@ updates:
   - package-ecosystem: "docker"
     directory: "/.github/osv-scanner"
     schedule:
-      interval: "weekly"
+      interval: "daily"
     cooldown:
       default-days: 7
